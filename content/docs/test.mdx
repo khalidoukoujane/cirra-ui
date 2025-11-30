@@ -1,17 +1,151 @@
 ---
-title: Components
-description: Components
+title: Button
+description: A versatile button component with multiple variants and sizes
 ---
 
-## Code Block
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { Button } from "@/components/ui/button";
 
-```js
-console.log('Hello World');
+## Button
+
+A customizable button component built with class-variance-authority.
+
+### Default
+
+<Tabs items={['Preview', 'Code']}>
+  <Tab value="Preview">
+    <div className="flex items-center justify-center p-8 border rounded-lg">
+      <Button>Button</Button>
+    </div>
+  </Tab>
+  <Tab value="Code">
+```tsx
+import { Button } from "@/components/ui/button";
+
+export default function ButtonDemo() {
+  return <Button>Button</Button>;
+}
 ```
+  </Tab>
+</Tabs>
 
-## Cards
+### Variants
 
-<Cards>
-  <Card title="Learn more about Next.js" href="https://nextjs.org/docs" />
-  <Card title="Learn more about Fumadocs" href="https://fumadocs.dev" />
-</Cards>
+<Tabs items={['Preview', 'Code']}>
+  <Tab value="Preview">
+    <div className="flex flex-wrap items-center gap-4 justify-center p-8 border rounded-lg">
+      <Button variant="default">Default</Button>
+      <Button variant="secondary">Secondary</Button>
+      <Button variant="destructive">Destructive</Button>
+      <Button variant="outline">Outline</Button>
+      <Button variant="ghost">Ghost</Button>
+      <Button variant="link">Link</Button>
+    </div>
+  </Tab>
+  <Tab value="Code">
+```tsx
+import { Button } from "@/components/ui/button";
+
+export default function ButtonVariants() {
+  return (
+    <>
+      <Button variant="default">Default</Button>
+      <Button variant="secondary">Secondary</Button>
+      <Button variant="destructive">Destructive</Button>
+      <Button variant="outline">Outline</Button>
+      <Button variant="ghost">Ghost</Button>
+      <Button variant="link">Link</Button>
+    </>
+  );
+}
+```
+  </Tab>
+</Tabs>
+
+### Sizes
+
+<Tabs items={['Preview', 'Code']}>
+  <Tab value="Preview">
+    <div className="flex items-center gap-4 justify-center p-8 border rounded-lg">
+      <Button size="sm">Small</Button>
+      <Button size="default">Default</Button>
+      <Button size="lg">Large</Button>
+    </div>
+  </Tab>
+  <Tab value="Code">
+```tsx
+import { Button } from "@/components/ui/button";
+
+export default function ButtonSizes() {
+  return (
+    <>
+      <Button size="sm">Small</Button>
+      <Button size="default">Default</Button>
+      <Button size="lg">Large</Button>
+    </>
+  );
+}
+```
+  </Tab>
+</Tabs>
+
+## Installation
+
+Copy and paste the following code into your project.
+
+```tsx title="components/ui/button.tsx"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default:
+          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+        outline:
+          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
+        secondary:
+          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-9 px-4 py-2",
+        sm: "h-8 rounded-md px-3 text-xs",
+        lg: "h-10 rounded-md px-8",
+        icon: "h-9 w-9",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+);
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+}
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, ...props }, ref) => {
+    return (
+      <button
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+Button.displayName = "Button";
+
+export { Button, buttonVariants };
+```
