@@ -1,0 +1,191 @@
+---
+title: Input
+description: A floating label input component with smooth animations
+---
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { Input } from "@/components/ui/input";
+
+## Input
+
+An animated input component with a floating label that elegantly transitions when focused or filled.
+
+### Default
+
+<Tabs items={['Preview', 'Code']}>
+  <Tab value="Preview">
+    <div className="flex items-center justify-center p-8 border rounded-lg">
+      <div className="w-full max-w-sm">
+        <Input label="Email" type="email" />
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Code">
+```tsx
+import { Input } from "@/components/ui/input";
+
+export default function InputDemo() {
+  return <Input label="Email" type="email" />;
+}
+```
+  </Tab>
+</Tabs>
+
+### With Error
+
+<Tabs items={['Preview', 'Code']}>
+  <Tab value="Preview">
+    <div className="flex items-center justify-center p-8 border rounded-lg">
+      <div className="w-full max-w-sm space-y-4">
+        <Input label="Username" error="Username is required" />
+        <Input label="Email" type="email" error="Please enter a valid email" />
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Code">
+```tsx
+import { Input } from "@/components/ui/input";
+
+export default function InputWithError() {
+  return (
+    <>
+      <Input label="Username" error="Username is required" />
+      <Input label="Email" type="email" error="Please enter a valid email" />
+    </>
+  );
+}
+```
+  </Tab>
+</Tabs>
+
+### Different Types
+
+<Tabs items={['Preview', 'Code']}>
+  <Tab value="Preview">
+    <div className="flex items-center justify-center p-8 border rounded-lg">
+      <div className="w-full max-w-sm space-y-4">
+        <Input label="Email" type="email" />
+        <Input label="Password" type="password" />
+        <Input label="Phone Number" type="tel" />
+        <Input label="Date of Birth" type="date" />
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Code">
+```tsx
+import { Input } from "@/components/ui/input";
+
+export default function InputTypes() {
+  return (
+    <>
+      <Input label="Email" type="email" />
+      <Input label="Password" type="password" />
+      <Input label="Phone Number" type="tel" />
+      <Input label="Date of Birth" type="date" />
+    </>
+  );
+}
+```
+  </Tab>
+</Tabs>
+
+### Disabled
+
+<Tabs items={['Preview', 'Code']}>
+  <Tab value="Preview">
+    <div className="flex items-center justify-center p-8 border rounded-lg">
+      <div className="w-full max-w-sm">
+        <Input label="Disabled Input" disabled value="Cannot edit this" />
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Code">
+```tsx
+import { Input } from "@/components/ui/input";
+
+export default function InputDisabled() {
+  return <Input label="Disabled Input" disabled value="Cannot edit this" />;
+}
+```
+  </Tab>
+</Tabs>
+
+## Features
+
+- **Floating Label**: Label smoothly transitions to the top when focused or filled
+- **Error States**: Built-in error handling with animated error messages
+- **Type Support**: Works with all HTML input types
+- **Accessible**: Proper ARIA attributes and keyboard navigation
+- **Smooth Animations**: 200ms transitions for a polished feel
+
+## Installation
+
+Copy and paste the following code into your project.
+
+```tsx title="components/ui/input.tsx"
+import * as React from "react";
+import { cn } from "@/lib/utils";
+
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
+  error?: string;
+}
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, label, error, ...props }, ref) => {
+    const [isFocused, setIsFocused] = React.useState(false);
+    const [hasValue, setHasValue] = React.useState(false);
+
+    const handleFocus = () => setIsFocused(true);
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+      setIsFocused(false);
+      setHasValue(e.target.value.length > 0);
+    };
+
+    return (
+      <div className="relative w-full">
+        <input
+          type={type}
+          className={cn(
+            "peer w-full rounded-lg border border-input bg-background px-4 pt-6 pb-2 text-sm transition-all duration-200",
+            "placeholder-transparent",
+            "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-0 focus:border-transparent",
+            "disabled:cursor-not-allowed disabled:opacity-50",
+            error && "border-destructive focus:ring-destructive",
+            className
+          )}
+          ref={ref}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          placeholder={label || ""}
+          {...props}
+        />
+        {label && (
+          <label
+            className={cn(
+              "absolute left-4 transition-all duration-200 pointer-events-none",
+              "text-muted-foreground",
+              isFocused || hasValue
+                ? "top-2 text-xs font-medium"
+                : "top-1/2 -translate-y-1/2 text-sm",
+              isFocused && "text-ring",
+              error && "text-destructive"
+            )}
+          >
+            {label}
+          </label>
+        )}
+        {error && (
+          <p className="mt-1.5 text-xs text-destructive animate-in fade-in slide-in-from-top-1 duration-200">
+            {error}
+          </p>
+        )}
+      </div>
+    );
+  }
+);
+Input.displayName = "Input";
+
+export { Input };
+```
