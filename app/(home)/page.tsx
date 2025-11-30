@@ -13,7 +13,7 @@ export default function HomePage() {
         </p>
         <div className="flex gap-4 mt-4">
           <Link
-            href="/components/test" //for now
+            href="/components/button" //for now
             className="px-6 py-2.5 bg-foreground text-background rounded-lg font-medium hover:underline duration-200"
           >
             Browse Components
