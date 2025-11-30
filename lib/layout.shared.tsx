@@ -1,9 +1,16 @@
-import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
+import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
+import { ArrowUpRightIcon } from "lucide-react";
 
 export function baseOptions(): BaseLayoutProps {
   return {
     nav: {
-      title: 'My App',
+      title: "CirraUI",
     },
+    links: [
+      {
+        text: "Components",
+        url: "/components",
+      },
+    ],
   };
 }
