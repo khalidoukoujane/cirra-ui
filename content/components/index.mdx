@@ -3,6 +3,8 @@ title: Get started
 description: Get started with CirraUI - a lightweight component library for creators
 ---
 
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
 ## Welcome to CirraUI
 
 CirraUI is a modern, lightweight UI component library designed specifically for creators who want to build beautiful interfaces without the bloat.
@@ -14,26 +16,106 @@ CirraUI is a modern, lightweight UI component library designed specifically for 
 - **Flexible**: Easy to customize and extend
 - **Modern**: Built with the latest web technologies
 
-### Getting Started
+## Installation
 
-Browse through our component library to find the perfect components for your project. Each component is designed to be easy to use and fully customizable.
+CirraUI is not a package you install. Simply copy the code you need and paste it into your project. However, you'll need to set up a few dependencies first.
 
-### How It Works
+### Prerequisites
 
-CirraUI is not a package you install. Simply browse the components, copy the code you need, and paste it into your project. Own your code, customize it however you want.
+Make sure you have a Next.js or React project with Tailwind CSS configured.
 
-### Quick Example
+### Step 1: Install Dependencies
 
-Pick a component, copy the code, and you're ready to go:
+Install the required packages:
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tab value="npm">
+    ```bash npm install class-variance-authority clsx tailwind-merge ```
+  </Tab>
+  <Tab value="pnpm">
+    ```bash pnpm add class-variance-authority clsx tailwind-merge ```
+  </Tab>
+  <Tab value="yarn">
+    ```bash yarn add class-variance-authority clsx tailwind-merge ```
+  </Tab>
+  <Tab value="bun">
+    ```bash bun add class-variance-authority clsx tailwind-merge ```
+  </Tab>
+</Tabs>
+
+### Step 2: Create Component Directory
+
+Create the `components/ui` directory in your project root:
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tab value="npm">```bash mkdir -p components/ui ```</Tab>
+  <Tab value="pnpm">```bash mkdir -p components/ui ```</Tab>
+  <Tab value="yarn">```bash mkdir -p components/ui ```</Tab>
+  <Tab value="bun">```bash mkdir -p components/ui ```</Tab>
+</Tabs>
+
+This is where you'll paste all component files.
+
+### Step 3: Add the `cn` Utility
+
+Create a `lib/utils.ts` file in your project root and add the following code:
+
+```ts title="lib/utils.ts"
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+This utility function is used throughout all components to merge Tailwind CSS classes intelligently.
+
+### Step 4: Configure Path Alias
+
+Make sure your `tsconfig.json` has the `@` path alias configured:
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
+}
+```
+
+### Step 5: Start Using Components
+
+Now you're ready to use any component! Simply:
+
+1. Browse the component you want
+2. Copy the code from the installation section
+3. Paste it into `components/ui/[component-name].tsx`
+4. Import and use it in your app
 
 ```tsx
 import { Button } from "@/components/ui/button";
 
 export default function App() {
-  return <Button variant="primary">Get Started</Button>;
+  return <Button>Click me</Button>;
 }
 ```
 
-### Next Steps
+## Next Steps
 
-Explore our components and start building something amazing!
+- Browse our [Button](/components/button) component
+- Check out the [Input](/components/input) component
+- Explore the [Card](/components/card) component
+
+### Customization
+
+Every component is just a file in your project. You can:
+
+- Modify the styles directly
+- Add new variants
+- Change animations
+- Adjust spacing and sizing
+
+The code is yours—customize it however you want!
