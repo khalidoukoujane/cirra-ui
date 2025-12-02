@@ -15,9 +15,6 @@ CirraUI is a collection of carefully crafted UI components that you can copy and
 - 🎨 **Customizable** - Own your code and customize however you want
 - 🌙 **Dark Mode** - Built-in support for light and dark themes
 
-## Quick Start
-
-Visit [your-site-url](https://cirra-ui.vercel.app) to browse components and get started.
 
 ## Development
 
