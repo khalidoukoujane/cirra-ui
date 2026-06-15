@@ -1,3 +1,4 @@
 {
-  "pages": ["introduction", "button", "input", "card"]
+  "title": "Get started",
+  "pages": ["introduction", "button", "input", "card", "select"]
 }

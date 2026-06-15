@@ -1,5 +1,4 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
-import { ArrowUpRightIcon } from "lucide-react";
 
 export function baseOptions(): BaseLayoutProps {
   return {
@@ -8,7 +7,7 @@ export function baseOptions(): BaseLayoutProps {
     },
     links: [
       {
-        text: "Components",
+        text: "Get started",
         url: "/components",
       },
     ],
